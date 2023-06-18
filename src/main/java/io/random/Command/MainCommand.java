@@ -46,6 +46,11 @@ public class MainCommand implements CommandExecutor {
                         CheckReward checkReward = new CheckReward();
                         checkReward.onCommand(sender, command, label, args);
                     }
+
+                    case "등록" -> {
+                        Registration registration = new Registration();
+                        registration.onCommand(sender, command, label, args);
+                    }
                 }
             }
         }

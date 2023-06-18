@@ -25,46 +25,32 @@ public class OnClickNPC implements Listener {
         item.setItemMeta(itemMeta);
 
         if (npc.getName().equals("출첵보상")) {
-            if (itemCount > 0) {
-                int amountInInventory = countItemInInventory(player, Material.BOOK);
-                if (amountInInventory >= itemCount) {
-                    removeItemFromInventory(player, Material.BOOK, itemCount);
-                    player.getInventory().addItem(item);
+            int itemAmount = 0;
+            boolean hasItem = false;
+
+            for (ItemStack inventoryItem : player.getInventory().getContents()) {
+                if (inventoryItem != null && inventoryItem.isSimilar(item)) {
+                    itemAmount += inventoryItem.getAmount();
+                    hasItem = true;
+                }
+            }
+
+            if (hasItem) {
+                if (itemCount <= itemAmount) {
+                    for (int i = 0; i < itemCount; i++) {
+                        player.getInventory().removeItem(item);
+                    }
+
+                    // 등록한 아이템을 가져옵니다
+                    ItemStack items = plugin.getConfig().getItemStack("name");
+                    player.getInventory().addItem(items);
+
                 } else {
                     player.sendMessage("수량이 부족합니다.");
                 }
             } else {
-                player.sendMessage("수량을 설정해야 합니다.");
+                player.sendMessage("아이템이 없습니다.");
             }
         }
-    }
-
-    private int countItemInInventory(Player player, Material material) {
-        int count = 0;
-        for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && item.getType() == material) {
-                count += item.getAmount();
-            }
-        }
-        return count;
-    }
-
-    private void removeItemFromInventory(Player player, Material material, int amount) {
-        int remaining = amount;
-        ItemStack[] contents = player.getInventory().getContents();
-        for (int i = 0; i < contents.length; i++) {
-            ItemStack item = contents[i];
-            if (item != null && item.getType() == material) {
-                int itemAmount = item.getAmount();
-                if (remaining >= itemAmount) {
-                    remaining -= itemAmount;
-                    contents[i] = null;
-                } else {
-                    item.setAmount(itemAmount - remaining);
-                    break;
-                }
-            }
-        }
-        player.getInventory().setContents(contents);
     }
 }
