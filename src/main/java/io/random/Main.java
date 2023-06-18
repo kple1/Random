@@ -1,11 +1,12 @@
 package io.random;
 
 import io.random.Command.MainCommand;
+import io.random.Listener.ChatListener;
 import io.random.Listener.CloseEvent;
+import io.random.Listener.RightClick;
+import io.random.Listener.WinRandom;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public final class Main extends JavaPlugin {
 
@@ -17,6 +18,8 @@ public final class Main extends JavaPlugin {
 
     public void listener() {
         Bukkit.getPluginManager().registerEvents(new CloseEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new WinRandom(), this);
+        Bukkit.getPluginManager().registerEvents(new RightClick(), this);
     }
 
     @Override

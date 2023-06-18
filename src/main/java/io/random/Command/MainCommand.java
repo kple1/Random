@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
 
             if (args.length == 0) {
                 //TODO
@@ -38,7 +38,8 @@ public class MainCommand implements CommandExecutor {
                     }
 
                     case "설정" -> {
-                        //TODO
+                        Build build = new Build();
+                        build.onCommand(sender, command, label, args);
                     }
 
                     case "출첵제작" -> {
