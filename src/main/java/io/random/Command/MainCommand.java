@@ -42,24 +42,9 @@ public class MainCommand implements CommandExecutor {
                         build.onCommand(sender, command, label, args);
                     }
 
-                    case "출첵제작" -> {
-                        //TODO
-                    }
-
-                    case "출첵삭제" -> {
-                        //TODO
-                    }
-
-                    case "출첵목록" -> {
-                        //TODO
-                    }
-
-                    case "출첵당첨아이템" -> {
-                        //TODO
-                    }
-
-                    case "출첵설정" -> {
-                        //TODO
+                    case "출석보상" -> {
+                        CheckReward checkReward = new CheckReward();
+                        checkReward.onCommand(sender, command, label, args);
                     }
                 }
             }
