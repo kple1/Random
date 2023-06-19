@@ -22,6 +22,8 @@ public class Build implements CommandExecutor {
         if (sender instanceof Player player) {
             PlayerInventory inventory = player.getInventory();
             ItemStack itemStack = inventory.getItemInMainHand();
+            String title = Color.chat("&f[ &b가챠 &f] ");
+
             if (itemStack.getType() == Material.AIR) {
                 return true;
             }
@@ -61,6 +63,7 @@ public class Build implements CommandExecutor {
 
                     plugin.getConfig().set("RightClick." + 0 + ".item", itemStack);
                     plugin.getConfig().set("RightClick." + 0 + ".name", args[1]);
+                    player.sendMessage(title + "가챠가 설정되었습니다.");
                 }
                 plugin.saveConfig();
             }

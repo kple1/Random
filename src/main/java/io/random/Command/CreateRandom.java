@@ -1,5 +1,6 @@
 package io.random.Command;
 
+import io.random.Utils.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import static io.random.Main.plugin;
 
 public class CreateRandom implements CommandExecutor {
+
+    String title = Color.chat("&f[ &b가챠 &f] ");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -22,6 +25,7 @@ public class CreateRandom implements CommandExecutor {
                         plugin.getConfig().set("가챠목록." + 0 + ".name", args[1]);
                     }
                     plugin.saveConfig();
+                    player.sendMessage(title + "&c" + args[1] + "을(를) 만드셨습니다.");
                 }
             }
         }

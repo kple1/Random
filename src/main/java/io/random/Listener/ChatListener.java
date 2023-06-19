@@ -1,6 +1,7 @@
 package io.random.Listener;
 
 import io.random.Main;
+import io.random.Utils.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -13,6 +14,7 @@ public class ChatListener implements Listener {
     private final Player player;
     private final String title;
     private final int i;
+    String titles = Color.chat("&f[ &b가챠 &f] ");
 
     public ChatListener(Player player, String title, int i) {
         this.plugin = Main.getPlugin();
@@ -27,7 +29,7 @@ public class ChatListener implements Listener {
         if (message != null && !message.isEmpty()) {
             plugin.getConfig().set(title + "." + i + ".ran", Double.parseDouble(message));
             plugin.saveConfig();
-            player.sendMessage("확률 설정이 완료되었습니다.");
+            player.sendMessage(titles + "확률 설정이 완료되었습니다.");
         }
 
         // 이벤트 핸들러를 제거합니다.

@@ -1,5 +1,6 @@
 package io.random.Listener;
 
+import io.random.Utils.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import static io.random.Main.plugin;
 public class CloseEvent implements Listener {
 
     private Inventory inv;
+    String title = Color.chat("&f[ &b가챠 &f] ");
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
@@ -40,5 +42,6 @@ public class CloseEvent implements Listener {
             }
         }
         plugin.saveConfig();
+        player.sendMessage(title + "설정이 저장되었습니다.");
     }
 }

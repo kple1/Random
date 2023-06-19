@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class ItemUtil {
 
+    static String title = Color.chat("&f[ &b가챠 &f] ");
+
     // 여러 아이템 중 정해진 확률로 한 개의 아이템을 획득하는 메서드
     public static void addItemWithProbability(Player player, Map<ItemStack, Double> itemProbabilities) {
         double totalProbability = 0.0;
@@ -24,7 +26,7 @@ public class ItemUtil {
             cumulativeProbability += probability;
             if (randomValue < cumulativeProbability) {
                 player.getInventory().addItem(item);
-                player.sendMessage("아이템을 획득했습니다!");
+                player.sendMessage(title + "아이템을 획득했습니다!");
                 break;
             }
         }
