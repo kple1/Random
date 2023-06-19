@@ -14,7 +14,14 @@ public class Registration implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
             ItemStack item = player.getInventory().getItemInMainHand();
+
+            if (item.getAmount() == 0) {
+                player.sendMessage("아이템을 들어주세요!");
+                return true;
+            }
+
             String lore = item.getLore().toString().replace("[", "").replace("]", "");
+
             plugin.getConfig().set("name", item);
             plugin.getConfig().set("lore", lore);
             plugin.saveConfig();

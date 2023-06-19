@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.IOException;
+
 import static io.random.Main.plugin;
 
 public class OnClickNPC implements Listener {
@@ -42,9 +44,13 @@ public class OnClickNPC implements Listener {
                     }
 
                     // 등록한 아이템을 가져옵니다
-                    ItemStack items = plugin.getConfig().getItemStack("name");
-                    player.getInventory().addItem(items);
-
+                    try {
+                        ItemStack items = plugin.getConfig().getItemStack("name");
+                        player.getInventory().addItem(items);
+                    } catch (Exception e) {
+                        player.sendMessage("가챠를 등록하셔야 합니다.");
+                        e.printStackTrace();
+                    }
                 } else {
                     player.sendMessage("수량이 부족합니다.");
                 }

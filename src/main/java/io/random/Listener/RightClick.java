@@ -2,7 +2,6 @@ package io.random.Listener;
 
 import io.random.Utils.ItemUtil;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,12 +17,12 @@ public class RightClick implements Listener {
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
-        if (event.getAction().isRightClick()) {
-            // 우클릭한 플레이어
-            Player player = event.getPlayer();
-            // 우클릭한 아이템
-            ItemStack item = event.getItem();
+        // 우클릭한 플레이어
+        Player player = event.getPlayer();
+        // 우클릭한 아이템
+        ItemStack item = event.getItem();
 
+        if (event.getAction().isRightClick()) {
             if (item == null || item.getType() == Material.AIR) {
                 return;
             }
