@@ -27,7 +27,7 @@ public class OnClickNPC implements Listener {
         item.setItemMeta(itemMeta);
 
         if (npc.getName().equals("출첵보상")) {
-            int itemAmount = 0;
+            int itemAmount = 1;
             boolean hasItem = false;
 
             for (ItemStack inventoryItem : player.getInventory().getContents()) {

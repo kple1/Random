@@ -1,5 +1,6 @@
 package io.random.Listener;
 
+import io.random.Utils.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,6 +11,8 @@ import static io.random.Main.plugin;
 
 public class WinRandom implements Listener {
 
+    String title = Color.chat("&f[ &b가챠 &f] ");
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -19,7 +22,7 @@ public class WinRandom implements Listener {
                 if (event.getSlot() >= 0 && event.getSlot() < 54) {
                     if (event.getClick().isRightClick()) {
                         player.closeInventory();
-                        player.sendMessage("확률을 입력 해주세요");
+                        player.sendMessage(title + "확률을 입력 해주세요");
                         Bukkit.getPluginManager().registerEvents(new ChatListener(player, event.getView().getTitle(), event.getSlot()), plugin);
                     }
                 }

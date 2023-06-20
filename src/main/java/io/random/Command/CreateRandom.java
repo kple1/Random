@@ -25,7 +25,7 @@ public class CreateRandom implements CommandExecutor {
                         plugin.getConfig().set("가챠목록." + 0 + ".name", args[1]);
                     }
                     plugin.saveConfig();
-                    player.sendMessage(title + "&c" + args[1] + "을(를) 만드셨습니다.");
+                    player.sendMessage(Color.chat(title + "&c" + args[1] + "&f을(를) 만드셨습니다."));
                 }
             }
         }

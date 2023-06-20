@@ -39,9 +39,9 @@ public class CloseEvent implements Listener {
                         plugin.getConfig().set(get + "." + j + ".slot", null);
                     }
                 }
+                player.sendMessage(title + "설정이 저장되었습니다.");
             }
         }
         plugin.saveConfig();
-        player.sendMessage(title + "설정이 저장되었습니다.");
     }
 }

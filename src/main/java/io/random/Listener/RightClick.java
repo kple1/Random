@@ -57,7 +57,12 @@ public class RightClick implements Listener {
 
             // 여러 아이템 중 정해진 확률로 한 개의 아이템을 획득
             ItemUtil.addItemWithProbability(player, itemProbabilities);
-            player.getInventory().removeItem(player.getInventory().getItemInMainHand());
+            ItemStack items = player.getInventory().getItemInMainHand();
+            if (items.getAmount() > 1) {
+                items.setAmount(item.getAmount() - 1);
+            } else {
+                player.getInventory().removeItem(items);
+            }
         }
     }
 }
