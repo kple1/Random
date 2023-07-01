@@ -56,6 +56,11 @@ public class MainCommand implements CommandExecutor {
                         NoticeSet noticeSet = new NoticeSet();
                         noticeSet.onCommand(sender, command, label, args);
                     }
+
+                    case "초기화" -> {
+                        ResetNotice resetNotice = new ResetNotice();
+                        resetNotice.onCommand(sender, command, label, args);
+                    }
                 }
             }
         }

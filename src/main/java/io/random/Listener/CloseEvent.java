@@ -53,16 +53,17 @@ public class CloseEvent implements Listener {
             if (event.getView().getTitle().equals(getPlugin + " 공지설정")) {
                 inv = event.getInventory();
                 for (int i = 0; i < 54; i++) {
-                    ItemStack item = inv.getItem(i);
-                    if (item == null) {
-                        continue;
-                    }
 
-                    // 아이템 이름과 아이템 자체를 모두 저장합니다.
-                    ItemMeta itemMeta = item.getItemMeta();
-                    String itemName = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : item.getType().toString();
-                    plugin.getConfig().set(getPlugin + " 공지설정." + i + ".NoticeSet", item);
-                    plugin.getConfig().set(getPlugin + " 공지설정." + i + ".itemName", itemName);
+                    ItemStack item = inv.getItem(i);
+                    if (item != null) {
+                        ItemMeta itemMeta = item.getItemMeta();
+                        String itemName = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : item.getType().toString();
+                        plugin.getConfig().set(getPlugin + " 공지설정." + i + ".NoticeSet", item);
+                        plugin.getConfig().set(getPlugin + " 공지설정." + i + ".itemName", itemName);
+                    } else {
+                        plugin.getConfig().set(getPlugin + " 공지설정." + i + ".NoticeSet", null);
+                        plugin.getConfig().set(getPlugin + " 공지설정." + i + ".itemName", null);
+                    }
                 }
             }
         }
