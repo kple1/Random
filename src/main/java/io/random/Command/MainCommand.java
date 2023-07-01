@@ -51,6 +51,11 @@ public class MainCommand implements CommandExecutor {
                         Registration registration = new Registration();
                         registration.onCommand(sender, command, label, args);
                     }
+
+                    case "공지설정" -> {
+                        NoticeSet noticeSet = new NoticeSet();
+                        noticeSet.onCommand(sender, command, label, args);
+                    }
                 }
             }
         }
