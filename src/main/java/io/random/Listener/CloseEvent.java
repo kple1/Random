@@ -25,6 +25,9 @@ public class CloseEvent implements Listener {
             if (get == null) {
                 continue;
             }
+            if (!event.getView().getTitle().equals(plugin.getConfig().getString("가챠목록." + i + ".name"))) {
+                return;
+            }
 
             this.inv = Bukkit.createInventory(null, 54, get);
 
