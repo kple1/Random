@@ -15,7 +15,6 @@ import static io.random.Main.plugin;
 public class WinnerItemRandom implements CommandExecutor {
 
     private Inventory inv;
-    String title = Color.chat("&f[ &b가챠 &f] ");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
@@ -45,7 +44,6 @@ public class WinnerItemRandom implements CommandExecutor {
                         inv.setItem(i, item);
                     }
                     player.openInventory(inv);
-                    player.sendMessage(title + "당첨아이템이 설정되었습니다.");
                 }
             }
         }

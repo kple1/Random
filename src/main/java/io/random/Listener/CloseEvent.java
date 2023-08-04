@@ -10,6 +10,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Set;
+
 import static io.random.Main.plugin;
 
 public class CloseEvent implements Listener {
@@ -20,18 +22,14 @@ public class CloseEvent implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        for (int i = 0; i < 100; i++) {
-            String get = plugin.getConfig().getString("가챠목록." + i + ".name");
-            if (get == null) {
-                continue;
-            }
-            if (!event.getView().getTitle().equals(plugin.getConfig().getString("가챠목록." + i + ".name"))) {
-                return;
-            }
+        Set<String> gameName = plugin.getConfig().getConfigurationSection("가챠목록").getKeys(false);
 
-            this.inv = Bukkit.createInventory(null, 54, get);
-
+        for (String key : gameName) {
+            String get = plugin.getConfig().getString("가챠목록." + key + ".name");
             if (event.getView().getTitle().equals(get)) {
+
+                this.inv = Bukkit.createInventory(null, 54, get);
+
                 inv = event.getInventory();
                 for (int j = 0; j < 54; j++) {
                     ItemStack item = inv.getItem(j);
@@ -43,9 +41,9 @@ public class CloseEvent implements Listener {
                         plugin.getConfig().set(get + "." + j + ".slot", null);
                     }
                 }
-                player.sendMessage(title + "설정이 저장되었습니다.");
             }
         }
+        player.sendMessage(title + "설정이 저장되었습니다.");
         plugin.saveConfig();
     }
 

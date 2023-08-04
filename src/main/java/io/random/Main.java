@@ -38,11 +38,6 @@ public final class Main extends JavaPlugin implements Listener {
         listener();
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
     public static Main getPlugin() {
         return plugin;
     }
