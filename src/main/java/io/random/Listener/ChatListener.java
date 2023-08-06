@@ -8,6 +8,9 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ChatListener implements Listener {
 
     private final Main plugin;
@@ -26,13 +29,20 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onChat(PlayerChatEvent event) {
         String message = event.getMessage();
-        if (message != null && !message.isEmpty()) {
-            plugin.getConfig().set(title + "." + i + ".ran", Double.parseDouble(message));
+
+        if (!Pattern.matches("-?\\d+(\\.\\d+)?", message)) {
+            player.sendMessage(titles + "입력한 값이 숫자가 아닙니다.");
+            event.setCancelled(true);
+            return;
+        }
+
+        double number = Double.parseDouble(message);
+        if (!message.isEmpty()) {
+            plugin.getConfig().set(title + "." + i + ".ran", number);
             plugin.saveConfig();
             player.sendMessage(titles + "확률 설정이 완료되었습니다.");
         }
 
-        // 이벤트 핸들러를 제거합니다.
         HandlerList.unregisterAll(this);
         event.setCancelled(true);
     }
