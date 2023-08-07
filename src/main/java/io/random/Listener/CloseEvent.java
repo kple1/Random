@@ -2,6 +2,7 @@ package io.random.Listener;
 
 import io.random.Utils.Color;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,9 +23,11 @@ public class CloseEvent implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        Set<String> gameName = plugin.getConfig().getConfigurationSection("가챠목록").getKeys(false);
+        ConfigurationSection gameName = plugin.getConfig().getConfigurationSection("가챠목록");
 
-        for (String key : gameName) {
+        if (gameName == null) return;
+
+        for (String key : gameName.getKeys(false)) {
             String get = plugin.getConfig().getString("가챠목록." + key + ".name");
             if (event.getView().getTitle().equals(get)) {
 

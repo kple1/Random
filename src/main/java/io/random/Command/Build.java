@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import static io.random.Main.plugin;
 
 public class Build implements CommandExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
@@ -30,16 +32,20 @@ public class Build implements CommandExecutor {
 
             if (args.length >= 2) {
                 boolean found = false;
-                for (int j = 0; j < 54; j++) {
-                    String name = plugin.getConfig().getString("가챠목록." + j + ".name");
+                ConfigurationSection getNumber = plugin.getConfig().getConfigurationSection("가챠목록"); // 기존 가챠목록의 개수를 가져옴
+                if (getNumber == null) {
+                    return true;
+                }
+
+                for (String key : getNumber.getKeys(false)) {
+                    String name = plugin.getConfig().getString("가챠목록." + key + ".name");
                     if (name != null && name.equals(args[1])) {
                         found = true;
-                        break;
                     }
                 }
 
                 if (!found) {
-                    player.sendMessage("해당 이름은 존재하지 않습니다.");
+                    player.sendMessage(title + "해당 이름은 존재하지 않습니다.");
                     return true;
                 }
 
@@ -61,8 +67,8 @@ public class Build implements CommandExecutor {
 
                     item.setItemMeta(meta);
 
-                    plugin.getConfig().set("RightClick." + 0 + ".item", itemStack);
-                    plugin.getConfig().set("RightClick." + 0 + ".name", args[1]);
+                    plugin.getConfig().set("RightClick." + 1 + ".item", itemStack);
+                    plugin.getConfig().set("RightClick." + 1 + ".name", args[1]);
                     player.sendMessage(title + "가챠가 설정되었습니다.");
                 }
                 plugin.saveConfig();

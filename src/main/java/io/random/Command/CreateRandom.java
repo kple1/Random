@@ -19,8 +19,8 @@ public class CreateRandom implements CommandExecutor {
             if (args.length >= 2) {
                 if (player.isOp()) {
                     if (plugin.getConfig().getConfigurationSection("가챠목록") != null) {
-                        int i = plugin.getConfig().getConfigurationSection("가챠목록").getKeys(false).size(); // 기존 가챠목록의 개수를 가져옴
-                        plugin.getConfig().set("가챠목록." + i + ".name", args[1]);
+                        int nextAvailableIndex = getNextAvailableIndex();
+                        plugin.getConfig().set("가챠목록." + nextAvailableIndex + ".name", args[1]);
                     } else {
                         plugin.getConfig().set("가챠목록." + 0 + ".name", args[1]);
                     }
@@ -30,6 +30,14 @@ public class CreateRandom implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    private int getNextAvailableIndex() {
+        int nextAvailableIndex = 0;
+        while (plugin.getConfig().getString("가챠목록." + nextAvailableIndex) != null) {
+            nextAvailableIndex++;
+        }
+        return nextAvailableIndex;
     }
 }
 
