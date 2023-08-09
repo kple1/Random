@@ -1,7 +1,6 @@
 package io.random.Command;
 
 import io.random.Utils.Color;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -58,22 +57,25 @@ public class Build implements CommandExecutor {
 
                     item.setItemMeta(meta);
 
-                    int i = plugin.getConfig().getConfigurationSection("RightClick").getKeys(false).size(); // 기존 가챠목록의 개수를 가져옴
-                    plugin.getConfig().set("RightClick." + i + ".item", itemStack);
-                    plugin.getConfig().set("RightClick." + i + ".name", args[1]);
+                    int nextAvailableIndex = getNextAvailableIndex();
+                    plugin.getConfig().set("RightClick." + nextAvailableIndex + ".item", itemStack);
+                    plugin.getConfig().set("RightClick." + nextAvailableIndex + ".name", args[1]);
+                    plugin.saveConfig();
                 } else {
-                    meta.setDisplayName(Color.chat("&9&o&l" + args[1]));
-                    meta.setLore(Collections.singletonList(displayName)); // 식별자를 로어에 추가
-
-                    item.setItemMeta(meta);
-
-                    plugin.getConfig().set("RightClick." + 1 + ".item", itemStack);
-                    plugin.getConfig().set("RightClick." + 1 + ".name", args[1]);
-                    player.sendMessage(title + "가챠가 설정되었습니다.");
+                    plugin.getConfig().set("RightClick." + 0 + ".item", itemStack);
+                    plugin.getConfig().set("RightClick." + 0 + ".name", args[1]);
+                    plugin.saveConfig();
                 }
-                plugin.saveConfig();
             }
         }
         return false;
+    }
+
+    private int getNextAvailableIndex() {
+        int nextAvailableIndex = 0;
+        while (plugin.getConfig().getString("RightClick." + nextAvailableIndex) != null) {
+            nextAvailableIndex++;
+        }
+        return nextAvailableIndex;
     }
 }
